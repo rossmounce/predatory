@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Marcelo Perlin" />
+
+<meta name="date" content="2017-01-11" />
+
+<title>Using predatory</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Using predatory</h1>
+<h4 class="author"><em>Marcelo Perlin</em></h4>
+<h4 class="date"><em>2017-01-11</em></h4>
+
+
+
+<div id="motivation" class="section level2">
+<h2>Motivation</h2>
+<p>The recent rise of publications in predatory journals is a big issue in the academic community and it hurts the development of science. This is especially true for developing countries such as Brazil, where the academic evaluation system is not yet well established. Surprinsingly, even standard impact assessment systems such as JCR and SJR are not immune to predatory publishers.</p>
+<p>One of the problems in doing empirical research regarding predatory journals is that the only available resource for their identification is <a href="https://scholarlyoa.com/">Beall’s list</a>. While it is certainly useful and its author deserves all the credit we can give him, the information in the site is unstructured as it only shows the names and links of predatory publishers and journals.</p>
+<p>As part of a research paper related to the analysis of predatory publications in Brazil, I’m building a database of predatory journals based on Beall’s site. While the stand-alone journals are easy to collect information using web-scraping algorithms, the part of the site for predatory publishers is not. In this sections, each website has its own format for several journals and it would be impossible to get information from all of them in the same way. In order to solve that, we are doing manual collection of the required information and storing it in a csv file.</p>
+<p>Based on this file, the package predatory makes it easy for researchers and librarians to check whether a particular journal or publisher is in Beall’s list or not. Not only that, it also allows direct access to the database that we are building. A shiny app is also available in <a href="https://msperlin.shinyapps.io/shiny-predatory/" class="uri">https://msperlin.shinyapps.io/shiny-predatory/</a>.</p>
+<p><strong><em>BE AWARE</em></strong> that the database is not yet complete. The collection of the data is manual and it takes time. The package will be updated in a regular basis.</p>
+</div>
+<div id="examples-of-usage" class="section level2">
+<h2>Examples of usage</h2>
+<div id="name-or-issn-lookup" class="section level3">
+<h3>Name or issn lookup</h3>
+<p>Let’s say you have the name of a journal called <em>Biomedical Laboratory and Clinical Research</em> that you want to check whether it is in Beall’s list or not. For that, you can simply use the following code:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(predatory)
+
+name &lt;-<span class="st"> 'Biomedical Laboratory and Clinical Research'</span>
+temp &lt;-<span class="st"> </span><span class="kw">find.predatory</span>(<span class="dt">x =</span> name)</code></pre></div>
+<pre><code>## 
+## Found 1 row(s)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">temp</code></pre></div>
+<pre><code>## # A tibble: 1 × 5
+##          publisher                                journal_name      issn
+##              &lt;chr&gt;                                       &lt;chr&gt;     &lt;chr&gt;
+## 1 1088 Email Press Biomedical Laboratory and Clinical Research 2473-3423
+## # ... with 2 more variables: SJR_2015 &lt;dbl&gt;, JCR_2014 &lt;chr&gt;</code></pre>
+<p>As you can see, this journal is published by 1088 Email Press and has an issn of 2473-3423.</p>
+<p>Another example would be to look for a journal based on its ISSN number. Let’s try the value <em>0028-0836</em>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my.issn &lt;-<span class="st"> '00208-0836'</span>
+temp &lt;-<span class="st"> </span><span class="kw">find.predatory</span>(<span class="dt">x =</span> my.issn, <span class="dt">by =</span> <span class="st">'issn'</span>)</code></pre></div>
+<pre><code>## 
+## Found 0 row(s)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">temp</code></pre></div>
+<pre><code>## # A tibble: 0 × 5
+## # ... with 5 variables: publisher &lt;chr&gt;, journal_name &lt;chr&gt;, issn &lt;chr&gt;,
+## #   SJR_2015 &lt;dbl&gt;, JCR_2014 &lt;chr&gt;</code></pre>
+<p>This time, however, the search returned a dataframe with 0 length. The result is not surprising since the issn belongs to the journal <a href="http://www.nature.com/nature/index.html">Nature</a>.</p>
+</div>
+<div id="partial-lookup" class="section level3">
+<h3>Partial lookup</h3>
+<p>Another possibility of usage is to look for all predatory journals within a particular subject. Let’s try all journals that have the word <em>finance</em> in its title.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my.str &lt;-<span class="st"> 'finance'</span>
+temp &lt;-<span class="st"> </span><span class="kw">find.predatory</span>(<span class="dt">x =</span> my.str)</code></pre></div>
+<pre><code>## 
+## Found 141 row(s)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(temp)</code></pre></div>
+<pre><code>## # A tibble: 6 × 5
+##                                  publisher
+##                                      &lt;chr&gt;
+## 1 Academic and Business Research Institute
+## 2 Academic and Business Research Institute
+## 3       Academic and Scientific Publishing
+## 4       Academic and Scientific Publishing
+## 5       Academic and Scientific Publishing
+## 6       Academic and Scientific Publishing
+## # ... with 4 more variables: journal_name &lt;chr&gt;, issn &lt;chr&gt;,
+## #   SJR_2015 &lt;dbl&gt;, JCR_2014 &lt;chr&gt;</code></pre>
+<p>This time we found 141 journals that are related to finance.</p>
+</div>
+</div>
+<div id="acessing-the-database-of-predatory-journals" class="section level2">
+<h2>Acessing the database of predatory journals</h2>
+<p>The database of predatory journals is available within the package. It is stored as a <em>csv</em> file in the <em>inst/extdat</em> folder. If you are interested in its contents, you can find it using command <code>system.file(&quot;extdata&quot;, 'predpub.csv', package = &quot;predatory&quot;)</code> or simply calling function <em>Get_PredPubTable</em> from the package, as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.predpub &lt;-<span class="st"> </span><span class="kw">get.predpubTable</span>()
+
+<span class="kw">head</span>(df.predpub)</code></pre></div>
+<pre><code>## # A tibble: 6 × 5
+##          publisher
+##              &lt;chr&gt;
+## 1 1088 Email Press
+## 2 1088 Email Press
+## 3 1088 Email Press
+## 4 1088 Email Press
+## 5 1088 Email Press
+## 6 1088 Email Press
+## # ... with 4 more variables: journal_name &lt;chr&gt;, issn &lt;chr&gt;,
+## #   SJR_2015 &lt;dbl&gt;, JCR_2014 &lt;chr&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(df.predpub)</code></pre></div>
+<pre><code>## Classes 'tbl_df', 'tbl' and 'data.frame':    10580 obs. of  5 variables:
+##  $ publisher   : chr  &quot;1088 Email Press&quot; &quot;1088 Email Press&quot; &quot;1088 Email Press&quot; &quot;1088 Email Press&quot; ...
+##  $ journal_name: chr  &quot;Advanced Research on Economincs and Management&quot; &quot;Biomedical Laboratory and Clinical Research&quot; &quot;International Journal of Advanced Science, Industry and Society&quot; &quot;Journal of Advanced Education&quot; ...
+##  $ issn        : chr  &quot;2473-3474&quot; &quot;2473-3423&quot; &quot;2473-3431&quot; &quot;Pending&quot; ...
+##  $ SJR_2015    : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ JCR_2014    : chr  NA NA NA NA ...
+##  - attr(*, &quot;spec&quot;)=List of 2
+##   ..$ cols   :List of 5
+##   .. ..$ publisher   : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
+##   .. ..$ journal_name: list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
+##   .. ..$ issn        : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
+##   .. ..$ SJR_2015    : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_double&quot; &quot;collector&quot;
+##   .. ..$ JCR_2014    : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
+##   ..$ default: list()
+##   .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_guess&quot; &quot;collector&quot;
+##   ..- attr(*, &quot;class&quot;)= chr &quot;col_spec&quot;</code></pre>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

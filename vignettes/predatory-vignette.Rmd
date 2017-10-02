@@ -1,0 +1,77 @@
+---
+title: "Using predatory"
+author: "Marcelo Perlin"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to use predatory}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Motivation
+
+The recent rise of publications in predatory journals is a big issue in the academic community and it hurts the development of science. This is especially true for developing countries such as Brazil, where the academic evaluation system is not yet well established. Surprinsingly, even standard impact assessment systems such as JCR and SJR are not immune to predatory publishers.   
+
+One of the problems in doing empirical research regarding predatory journals is that the only available resource for their identification is [Beall's list](https://scholarlyoa.com/). While it is certainly useful and its author deserves all the credit we can give him, the information in the site is unstructured as it only shows the names and links of predatory publishers and journals. 
+
+As part of a research paper related to the analysis of predatory publications in Brazil, I'm building a database of predatory journals based on Beall's site. While the stand-alone journals are easy to collect information using webscraping algorithms, the part of the site for predatory publishers is not. In this sections, each website has its own format for several journals and it would be impossible to get information from all of them in the same way. In order to solve that, we are doing manual collection of the required information and storing it in a csv file.
+
+Based on this file, the package predatory makes it easy for researchers and librarians to check whether a particular journal or publisher is in Beall's list or not. Not only that, it also allows direct access to the database that we are building. A shiny app is also available in [https://msperlin.shinyapps.io/shiny-predatory/](https://msperlin.shinyapps.io/shiny-predatory/).
+
+***BE AWARE*** that the database is not yet complete. The collection of the data is manual and it takes time. The package will be updated in a regular basis.
+
+## Examples of usage
+
+### Name or issn lookup
+
+Let's say you have the name of a journal called *Biomedical Laboratory and Clinical Research* that you want to check whether it is in Beall's list or not. For that, you can simply use the following code:
+
+
+```{r example1}
+library(predatory)
+
+name <- 'Biomedical Laboratory and Clinical Research'
+temp <- find.predatory(x = name)
+temp
+
+```
+
+As you can see, this journal is published by `r temp$publisher[1]` and has an issn of `r temp$issn[1]`.
+
+Another example would be to look for a journal based on its ISSN number. Let's try the value *0028-0836*.
+
+```{r example2}
+my.issn <- '00208-0836'
+temp <- find.predatory(x = my.issn, by = 'issn')
+temp
+
+```
+
+This time, however, the search returned a dataframe with 0 length. The result is not surprising since the issn belongs to the journal [Nature](http://www.nature.com/nature/index.html). 
+
+### Partial lookup 
+
+Another possibility of usage is to look for all predatory journals within a particular subject. Let's try all journals that have the word *finance* in its title.
+
+```{r example3}
+my.str <- 'finance'
+temp <- find.predatory(x = my.str)
+head(temp)
+
+```
+
+This time we found `r nrow(temp)` journals that are related to finance.
+
+## Acessing the database of predatory journals
+
+The database of predatory journals is available within the package. It is stored as a *csv* file in the *inst/extdat* folder. If you are interested in its contents, you can find it using command `system.file("extdata", 'predpub.csv', package = "predatory")` or simply calling function *Get_PredPubTable* from the package, as follows:
+
+
+```{r example4}
+df.predpub <- get.predpubTable()
+
+head(df.predpub)
+
+str(df.predpub)
+```
