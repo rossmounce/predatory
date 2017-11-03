@@ -1,3 +1,7 @@
+### Version 1.2  (2017-11-03)
+
+- Update in predatory database (2017-11-03), keeping the same version as paper' database
+
 ### Version 1.1  (2017-01-11)
 
 - Update in predatory database (2017-01-11)

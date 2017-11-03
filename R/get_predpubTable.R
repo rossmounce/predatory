@@ -24,9 +24,12 @@ get.predpubTable <- function(){
 
   # read it!
 
-  my.df <- readr::read_csv(my.f,col_types = readr::cols(publisher = readr::col_character(),
-                                          journal_name = readr::col_character(),
-                                          issn = readr::col_character()) )
+  my.df <- readr::read_csv(my.f,
+                           col_types = readr::cols(issn = readr::col_character(),
+                                                   name = readr::col_character(),
+                                                   main.url= readr::col_character(),
+                                                   type = readr::col_character(),
+                                                   ind.url = readr::col_character()) )
 
 
   return(my.df)

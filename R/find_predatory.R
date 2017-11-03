@@ -4,7 +4,7 @@
 #' The function can find a name or issn of a particular journal with perfect of partial match. A shiny app is also available (https://msperlin.shinyapps.io/shiny-predatory/).
 #'
 #' @param x A name or issn for full or partial matching. For the later, the format is XXXX-XXXX. The input is insensitive to capslock.
-#' @param by Defines whether to look for x in the names or issn of journals (possible values = c('name_journal','name_publisher','issn'))
+#' @param by Defines whether to look for x in the names or issn of journals (possible values = c('name','issn'))
 #' @param type.match Defines if the function will perform a full or partial match lookup (possible values = c('full','partial'))
 #' @param quiet Logical, defines whether to print results to screen or not
 #'
@@ -21,7 +21,7 @@
 #'
 #' out <- find.predatory(my.name)
 #' print(out)
-find.predatory <- function(x, by = 'name_journal', type.match = 'partial', quiet=F){
+find.predatory <- function(x, by = 'name', type.match = 'partial', quiet=F){
 
   # error checking
 
@@ -30,7 +30,7 @@ find.predatory <- function(x, by = 'name_journal', type.match = 'partial', quiet
     stop(paste0('ERROR: argument type should be one of the following:\n\n', paste(possible.types,collapse = '\n')))
   }
 
-  possible.types <- c('name_journal','name_publisher','issn')
+  possible.types <- c('name','issn')
   if ( !(by %in% possible.types)){
     stop(paste0('ERROR: argument by should be one of the following:\n\n', paste(possible.types,collapse = '\n')))
   }
@@ -56,8 +56,7 @@ find.predatory <- function(x, by = 'name_journal', type.match = 'partial', quiet
 
   # start matching
 
-  if (by=='name_journal')   my.matcher <- df.predpub$journal_name
-  if (by=='name_publisher') my.matcher <- df.predpub$publisher
+  if (by=='name')   my.matcher <- df.predpub$name
   if (by=='issn')           my.matcher <- df.predpub$issn
 
   x <- stringr::str_to_lower(x)

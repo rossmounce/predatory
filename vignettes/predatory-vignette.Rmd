@@ -30,13 +30,13 @@ Let's say you have the name of a journal called *Biomedical Laboratory and Clini
 ```{r example1}
 library(predatory)
 
-name <- 'Biomedical Laboratory and Clinical Research'
+name <- 'International Journal of Electrochemical Science'
 temp <- find.predatory(x = name)
 temp
 
 ```
 
-As you can see, this journal is published by `r temp$publisher[1]` and has an issn of `r temp$issn[1]`.
+As you can see, this journal is found in Beall's list and has an issn of `r temp$issn[1]`.
 
 Another example would be to look for a journal based on its ISSN number. Let's try the value *0028-0836*.
 
@@ -55,7 +55,7 @@ Another possibility of usage is to look for all predatory journals within a part
 
 ```{r example3}
 my.str <- 'finance'
-temp <- find.predatory(x = my.str)
+temp <- find.predatory(x = my.str, type.match = 'partial')
 head(temp)
 
 ```

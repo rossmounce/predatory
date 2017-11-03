@@ -4,12 +4,12 @@
 \alias{find.predatory}
 \title{Checks if an issn, name of journal or publisher is registered in Beall's list of predatory journals and publishers}
 \usage{
-find.predatory(x, by = "name_journal", type.match = "partial", quiet = F)
+find.predatory(x, by = "name", type.match = "partial", quiet = F)
 }
 \arguments{
 \item{x}{A name or issn for full or partial matching. For the later, the format is XXXX-XXXX. The input is insensitive to capslock.}
 
-\item{by}{Defines whether to look for x in the names or issn of journals (possible values = c('name_journal','name_publisher','issn'))}
+\item{by}{Defines whether to look for x in the names or issn of journals (possible values = c('name','issn'))}
 
 \item{type.match}{Defines if the function will perform a full or partial match lookup (possible values = c('full','partial'))}
 
