@@ -15,11 +15,10 @@ The recent rise of publications in predatory journals is a big issue in the acad
 
 One of the problems in doing empirical research regarding predatory journals is that the only available resource for their identification is [Beall's list](https://scholarlyoa.com/). While it is certainly useful and its author deserves all the credit we can give him, the information in the site is unstructured as it only shows the names and links of predatory publishers and journals. 
 
-As part of a research paper related to the analysis of predatory publications in Brazil, I'm building a database of predatory journals based on Beall's site. While the stand-alone journals are easy to collect information using webscraping algorithms, the part of the site for predatory publishers is not. In this sections, each website has its own format for several journals and it would be impossible to get information from all of them in the same way. In order to solve that, we are doing manual collection of the required information and storing it in a csv file.
+As part of a research paper related to the analysis of predatory publications in Brazil, I've built a database of predatory journals based on Beall's site. All data is gathered by a webscrapping algorithm that searches web pages from the list of Beall's site for an ISSN pattern and saves it all in a .csv file.
 
 Based on this file, the package predatory makes it easy for researchers and librarians to check whether a particular journal or publisher is in Beall's list or not. Not only that, it also allows direct access to the database that we are building. A shiny app is also available in [https://msperlin.shinyapps.io/shiny-predatory/](https://msperlin.shinyapps.io/shiny-predatory/).
 
-***BE AWARE*** that the database is not yet complete. The collection of the data is manual and it takes time. The package will be updated in a regular basis.
 
 ## Examples of usage
 

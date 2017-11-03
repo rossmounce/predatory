@@ -20,9 +20,9 @@ BE AWARE that the dataset for publishers is being built over time and it is not 
 While the database for standalone journals is up to date, the information about predatory publishers is not yet complete since it requires
 an extensive manual work. The missing data will be regularly included in the upcoming versions of the package.
 }
+
 \examples{
 my.predpub <- get.predpubTable()
 
 head(my.predpub)
 }
-

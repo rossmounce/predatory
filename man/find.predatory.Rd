@@ -28,10 +28,10 @@ The function can find a name or issn of a particular journal with perfect of par
 While the database for standalone journals is up to date, the information about predatory publishers is not yet complete since it requires
 an extensive manual work. The missing data will be regularly included in the upcoming versions of the package. Last update: 2016-12-09.
 }
+
 \examples{
 my.name <- 'finance'
 
 out <- find.predatory(my.name)
 print(out)
 }
-

@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -12,7 +12,7 @@
 
 <meta name="author" content="Marcelo Perlin" />
 
-<meta name="date" content="2017-01-11" />
+<meta name="date" content="2017-11-03" />
 
 <title>Using predatory</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Using predatory</h1>
 <h4 class="author"><em>Marcelo Perlin</em></h4>
-<h4 class="date"><em>2017-01-11</em></h4>
+<h4 class="date"><em>2017-11-03</em></h4>
 
 
 
@@ -78,9 +78,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Motivation</h2>
 <p>The recent rise of publications in predatory journals is a big issue in the academic community and it hurts the development of science. This is especially true for developing countries such as Brazil, where the academic evaluation system is not yet well established. Surprinsingly, even standard impact assessment systems such as JCR and SJR are not immune to predatory publishers.</p>
 <p>One of the problems in doing empirical research regarding predatory journals is that the only available resource for their identification is <a href="https://scholarlyoa.com/">Beall’s list</a>. While it is certainly useful and its author deserves all the credit we can give him, the information in the site is unstructured as it only shows the names and links of predatory publishers and journals.</p>
-<p>As part of a research paper related to the analysis of predatory publications in Brazil, I’m building a database of predatory journals based on Beall’s site. While the stand-alone journals are easy to collect information using web-scraping algorithms, the part of the site for predatory publishers is not. In this sections, each website has its own format for several journals and it would be impossible to get information from all of them in the same way. In order to solve that, we are doing manual collection of the required information and storing it in a csv file.</p>
+<p>As part of a research paper related to the analysis of predatory publications in Brazil, I’ve built a database of predatory journals based on Beall’s site. All data is gathered by a webscrapping algorithm that searches web pages from the list of Beall’s site for an ISSN pattern and saves it all in a .csv file.</p>
 <p>Based on this file, the package predatory makes it easy for researchers and librarians to check whether a particular journal or publisher is in Beall’s list or not. Not only that, it also allows direct access to the database that we are building. A shiny app is also available in <a href="https://msperlin.shinyapps.io/shiny-predatory/" class="uri">https://msperlin.shinyapps.io/shiny-predatory/</a>.</p>
-<p><strong><em>BE AWARE</em></strong> that the database is not yet complete. The collection of the data is manual and it takes time. The package will be updated in a regular basis.</p>
 </div>
 <div id="examples-of-usage" class="section level2">
 <h2>Examples of usage</h2>
@@ -94,11 +93,12 @@ temp &lt;-<span class="st"> </span><span class="kw">find.predatory</span>(<span 
 <pre><code>## 
 ## Found 1 row(s)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">temp</code></pre></div>
-<pre><code>## # A tibble: 1 × 5
+<pre><code>## # A tibble: 1 x 7
 ##          publisher                                journal_name      issn
 ##              &lt;chr&gt;                                       &lt;chr&gt;     &lt;chr&gt;
 ## 1 1088 Email Press Biomedical Laboratory and Clinical Research 2473-3423
-## # ... with 2 more variables: SJR_2015 &lt;dbl&gt;, JCR_2014 &lt;chr&gt;</code></pre>
+## # ... with 4 more variables: type_colection &lt;chr&gt;, type &lt;chr&gt;,
+## #   SJR_2015 &lt;dbl&gt;, JCR_2014 &lt;chr&gt;</code></pre>
 <p>As you can see, this journal is published by 1088 Email Press and has an issn of 2473-3423.</p>
 <p>Another example would be to look for a journal based on its ISSN number. Let’s try the value <em>0028-0836</em>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my.issn &lt;-<span class="st"> '00208-0836'</span>
@@ -106,9 +106,9 @@ temp &lt;-<span class="st"> </span><span class="kw">find.predatory</span>(<span 
 <pre><code>## 
 ## Found 0 row(s)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">temp</code></pre></div>
-<pre><code>## # A tibble: 0 × 5
-## # ... with 5 variables: publisher &lt;chr&gt;, journal_name &lt;chr&gt;, issn &lt;chr&gt;,
-## #   SJR_2015 &lt;dbl&gt;, JCR_2014 &lt;chr&gt;</code></pre>
+<pre><code>## # A tibble: 0 x 7
+## # ... with 7 variables: publisher &lt;chr&gt;, journal_name &lt;chr&gt;, issn &lt;chr&gt;,
+## #   type_colection &lt;chr&gt;, type &lt;chr&gt;, SJR_2015 &lt;dbl&gt;, JCR_2014 &lt;chr&gt;</code></pre>
 <p>This time, however, the search returned a dataframe with 0 length. The result is not surprising since the issn belongs to the journal <a href="http://www.nature.com/nature/index.html">Nature</a>.</p>
 </div>
 <div id="partial-lookup" class="section level3">
@@ -117,9 +117,9 @@ temp &lt;-<span class="st"> </span><span class="kw">find.predatory</span>(<span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my.str &lt;-<span class="st"> 'finance'</span>
 temp &lt;-<span class="st"> </span><span class="kw">find.predatory</span>(<span class="dt">x =</span> my.str)</code></pre></div>
 <pre><code>## 
-## Found 141 row(s)</code></pre>
+## Found 132 row(s)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(temp)</code></pre></div>
-<pre><code>## # A tibble: 6 × 5
+<pre><code>## # A tibble: 6 x 7
 ##                                  publisher
 ##                                      &lt;chr&gt;
 ## 1 Academic and Business Research Institute
@@ -128,9 +128,9 @@ temp &lt;-<span class="st"> </span><span class="kw">find.predatory</span>(<span 
 ## 4       Academic and Scientific Publishing
 ## 5       Academic and Scientific Publishing
 ## 6       Academic and Scientific Publishing
-## # ... with 4 more variables: journal_name &lt;chr&gt;, issn &lt;chr&gt;,
-## #   SJR_2015 &lt;dbl&gt;, JCR_2014 &lt;chr&gt;</code></pre>
-<p>This time we found 141 journals that are related to finance.</p>
+## # ... with 6 more variables: journal_name &lt;chr&gt;, issn &lt;chr&gt;,
+## #   type_colection &lt;chr&gt;, type &lt;chr&gt;, SJR_2015 &lt;dbl&gt;, JCR_2014 &lt;chr&gt;</code></pre>
+<p>This time we found 132 journals that are related to finance.</p>
 </div>
 </div>
 <div id="acessing-the-database-of-predatory-journals" class="section level2">
@@ -139,7 +139,7 @@ temp &lt;-<span class="st"> </span><span class="kw">find.predatory</span>(<span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.predpub &lt;-<span class="st"> </span><span class="kw">get.predpubTable</span>()
 
 <span class="kw">head</span>(df.predpub)</code></pre></div>
-<pre><code>## # A tibble: 6 × 5
+<pre><code>## # A tibble: 6 x 7
 ##          publisher
 ##              &lt;chr&gt;
 ## 1 1088 Email Press
@@ -148,26 +148,32 @@ temp &lt;-<span class="st"> </span><span class="kw">find.predatory</span>(<span 
 ## 4 1088 Email Press
 ## 5 1088 Email Press
 ## 6 1088 Email Press
-## # ... with 4 more variables: journal_name &lt;chr&gt;, issn &lt;chr&gt;,
-## #   SJR_2015 &lt;dbl&gt;, JCR_2014 &lt;chr&gt;</code></pre>
+## # ... with 6 more variables: journal_name &lt;chr&gt;, issn &lt;chr&gt;,
+## #   type_colection &lt;chr&gt;, type &lt;chr&gt;, SJR_2015 &lt;dbl&gt;, JCR_2014 &lt;chr&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(df.predpub)</code></pre></div>
-<pre><code>## Classes 'tbl_df', 'tbl' and 'data.frame':    10580 obs. of  5 variables:
-##  $ publisher   : chr  &quot;1088 Email Press&quot; &quot;1088 Email Press&quot; &quot;1088 Email Press&quot; &quot;1088 Email Press&quot; ...
-##  $ journal_name: chr  &quot;Advanced Research on Economincs and Management&quot; &quot;Biomedical Laboratory and Clinical Research&quot; &quot;International Journal of Advanced Science, Industry and Society&quot; &quot;Journal of Advanced Education&quot; ...
-##  $ issn        : chr  &quot;2473-3474&quot; &quot;2473-3423&quot; &quot;2473-3431&quot; &quot;Pending&quot; ...
-##  $ SJR_2015    : num  NA NA NA NA NA NA NA NA NA NA ...
-##  $ JCR_2014    : chr  NA NA NA NA ...
+<pre><code>## Classes 'tbl_df', 'tbl' and 'data.frame':    34004 obs. of  7 variables:
+##  $ publisher     : chr  &quot;1088 Email Press&quot; &quot;1088 Email Press&quot; &quot;1088 Email Press&quot; &quot;1088 Email Press&quot; ...
+##  $ journal_name  : chr  &quot;Advanced Research on Economincs and Management&quot; &quot;Biomedical Laboratory and Clinical Research&quot; &quot;International Journal of Advanced Science, Industry and Society&quot; &quot;Journal of Advanced Education&quot; ...
+##  $ issn          : chr  &quot;2473-3474&quot; &quot;2473-3423&quot; &quot;2473-3431&quot; &quot;Pending&quot; ...
+##  $ type_colection: chr  &quot;manual&quot; &quot;manual&quot; &quot;manual&quot; &quot;manual&quot; ...
+##  $ type          : chr  &quot;publisher&quot; &quot;publisher&quot; &quot;publisher&quot; &quot;publisher&quot; ...
+##  $ SJR_2015      : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ JCR_2014      : chr  NA NA NA NA ...
 ##  - attr(*, &quot;spec&quot;)=List of 2
-##   ..$ cols   :List of 5
-##   .. ..$ publisher   : list()
+##   ..$ cols   :List of 7
+##   .. ..$ publisher     : list()
 ##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
-##   .. ..$ journal_name: list()
+##   .. ..$ journal_name  : list()
 ##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
-##   .. ..$ issn        : list()
+##   .. ..$ issn          : list()
 ##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
-##   .. ..$ SJR_2015    : list()
+##   .. ..$ type_colection: list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
+##   .. ..$ type          : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
+##   .. ..$ SJR_2015      : list()
 ##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_double&quot; &quot;collector&quot;
-##   .. ..$ JCR_2014    : list()
+##   .. ..$ JCR_2014      : list()
 ##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
 ##   ..$ default: list()
 ##   .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_guess&quot; &quot;collector&quot;
@@ -181,7 +187,7 @@ temp &lt;-<span class="st"> </span><span class="kw">find.predatory</span>(<span 
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
